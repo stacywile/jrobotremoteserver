@@ -74,7 +74,11 @@ public class Jetty2Log4J implements Logger {
 	    logger.setLevel(configuredLevel);
 	}
     }
-
+    
+    public void debug(String msg, long value) {
+	logger.debug(format(msg, value));
+    }
+    
     public void debug(String msg, Object... args) {
 	logger.debug(format(msg, args));
     }

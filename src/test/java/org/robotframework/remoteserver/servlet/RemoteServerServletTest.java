@@ -54,7 +54,7 @@ public class RemoteServerServletTest {
             writer.close();
             s.close();
         } finally {
-            server.stop();
+            server.stop(5000);
         }
     }
 

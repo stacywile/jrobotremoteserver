@@ -23,7 +23,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
+//import org.eclipse.jetty.server.nio.SelectChannelConnector;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.robotframework.remoteserver.cli.CommandLineHelper;
@@ -51,9 +52,11 @@ import org.robotframework.remoteserver.servlet.RemoteServerServlet;
  */
 public class RemoteServer {
     private static Log log = LogFactory.getLog(RemoteServer.class);
-    protected Server server = new Server();
+    //protected Server server = new Server();
+    public Server server = new Server();
     private RemoteServerServlet servlet = new RemoteServerServlet();
-    private SelectChannelConnector connector = new SelectChannelConnector();
+    //private SelectChannelConnector connector = new SelectChannelConnector();
+    private ServerConnector connector = new ServerConnector(server);
 
     public RemoteServer() {
         connector.setName("jrobotremoteserver");
@@ -276,7 +279,8 @@ public class RemoteServer {
     public void stop(int timeoutMS) throws Exception {
         log.info("Robot Framework remote server stopping");
         if (timeoutMS > 0) {
-            server.setGracefulShutdown(timeoutMS);
+            //server.setGracefulShutdown(timeoutMS);
+            server.setStopTimeout(timeoutMS);
             Thread stopper = new Thread() {
                 @Override
                 public void run() {
